@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>WATable - A swiss army jQuery table plugin</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js" type="text/javascript"></script>
+    <!--[if lt IE 9]><!-->
+    <script src="/static/jquery.watable.ie.js" type="text/javascript" charset="utf-8"></script>
+    <!--<![endif]-->
+    <!--[if gte IE 9 | !IE]><!-->
+    <script src="/static/jquery.watable.js" type="text/javascript" charset="utf-8"></script>
+    <!--<![endif]-->
+    <script src="/static/datepicker/bootstrap-datepicker.js" type="text/javascript" charset="utf-8"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script src="/static/themeselector/jquery.bootstrapThemeSwitcher.js"></script>
+    <script src="/static/themeselector/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+    <link rel='stylesheet' href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <link rel='stylesheet' href='/static/style.css' />
+    <link rel='stylesheet' href='/static/watable.css' />
+    <link rel='stylesheet' href='/static/datepicker/datepicker.css' />
+    <link rel='stylesheet' href='/static/animate.css/animate.css' />
+    <meta name="author" content="Andreas Petersson">
+    <meta name="description" content="A swiss army jQuery table plugin">
+    <meta name="copyright" content="2012-07-10 | Andreas Petersson">
+    <meta name="keywords" content="watable,javascript,json,jQuery,bootstrap,ajax,table,grid,plugin,plug-in,sorting,sortable,pager,paging,pagination,filter,filtering,transition,regex">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-33299771-1']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+</head>
+
+<body>
+    <div class="logo">
+        <h2>WATable <small>- A swiss army jQuery table plugin<span class="label label-default label-as-badge">1.10.3</span>
+          <br/>Filter, format, paginate and sort your data with ease and lightning speed</small></h2>
+    </div>
+    <div class="github well">
+        <iframe src="/static/github/github-btn.html?user=wootapa&repo=watable&type=watch&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="140px" height="30px"></iframe>
+        <iframe src="/static/github/github-btn.html?user=wootapa&repo=watable&type=fork&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="140px" height="30px"></iframe>
+        <div class="btn-group">
+            <button class="btn btn-primary btn dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+            Switch Theme <span class="caret"></span>
+            </button>
+            <ul id="theme-selector" class="dropdown-menu" role="menu" style="right: 0; left: auto">
+            </ul>
+        </div>
+    </div>
+    <div class="top-menu container">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#tab1" class="demoTab" data-toggle="tab">Demo</a>
+            </li>
+            <li>
+                <a href="#tab2" class="optionsTab" data-toggle="tab">Options</a>
+            </li>
+            <li>
+                <a href="#tab3" data-toggle="tab">Methods</a>
+            </li>
+            <li>
+                <a href="#tab4" data-toggle="tab">Events</a>
+            </li>
+            <li>
+                <a href="#tab6" class="highlight-tab" data-toggle="tab">Dependencies</a>
+            </li>
+            <li>
+                <a href="#tab8" class="downloadTab highlight-tab" data-toggle="tab">Download</a>
+            </li>
+            <li>
+                <a href="#tab9" class="highlight-tab" data-toggle="tab">Message Board</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab1">
+                <div class="col-xs-2">
+                    <ul class="nav nav-tabs tabs-left">
+                        <li class="active">
+                            <a href="#lA" data-toggle="tab">Basic</a>
+                        </li>
+                        <li>
+                            <a href="#lC" data-toggle="tab">Filtering</a>
+                        </li>
+                        <li>
+                            <a href="#lF" data-toggle="tab">Formatting</a>
+                        </li>
+                        <li>
+                            <a href="#lJ" class="dataBindTab" data-toggle="tab">Data-Binding</a>
+                        </li>
+                        <li>
+                            <a href="#lG" data-toggle="tab">Checkable</a>
+                        </li>
+                        <li>
+                            <a href="#lD" class="transitionsTab" data-toggle="tab">Transitions</a>
+                        </li>
+                        <li>
+                            <a href="#lI" data-toggle="tab">Customize</a>
+                        </li>
+                        <li>
+                            <a href="#lE" data-toggle="tab">ColumnPicker</a>
+                        </li>
+                        <li>
+                            <a href="#lH" data-toggle="tab">Actions</a>
+                        </li>
+                        <li>
+                            <a href="#lB" data-toggle="tab">Column-Info</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-10">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="lA">
+                            <p>As simple as it gets with only sorting and paging.</p>
+                            <div id="div1"></div>
+                        </div>
+                        <div class="tab-pane" id="lB">
+                            <p>Hover over
+                                <span class="glyphicon glyphicon-info-sign"></span>-icon in column for further explanation.</p>
+                            <div id="div2"></div>
+                        </div>
+                        <div class="tab-pane" id="lC">
+                            <p>Filter on strings, numbers, booleans(checkboxes) and dates by typing into the fields (or optionally datepicker for dates).
+                                <br/>If you hoover a filter field with your mouse, you'll see a tooltip with hints on how they work.
+                                <br/>Prefix your filter with ! to get everything except your filter. Ex all but 10 to 20: <span class="hint">!10..20</span>
+                                <br/>Prefix your filter with ? for regex filtering. Ex John and Jane Doe: <span class="hint">?John Doe|Jane Doe</span>
+                                <div id="div3"></div>
+                                <a href="#" class="btn btn-primary export_filtered">Get the filtered rows</a>
+                        </div>
+                        <div class="tab-pane" id="lD">
+                            <p>Eye candy when paging! Works with modern browsers only (CSS3 animations).</p>
+                            <div class="btn-group">
+                                <button class="btn btn-default transition">Bounce</button>
+                                <button class="btn btn-default transition">Fade</button>
+                                <button class="btn btn-default transition">Flip</button>
+                                <button class="btn btn-default transition">Rotate</button>
+                                <button class="btn btn-default transition active">Scroll</button>
+                                <button class="btn btn-default transition">Slide</button>
+                            </div>
+                            <br/>
+                            <br/>
+                            <div id="div4"></div>
+                        </div>
+                        <div class="tab-pane" id="lE">
+                            <p>Add/remove columns on the fly with the columnPicker button.</p>
+                            <div id="div5"></div>
+                            <a href="#" class="btn btn-primary" id="update">Trigger a server update</a>
+                        </div>
+                        <div class="tab-pane" id="lF">
+                            <p>Format columns and fields in any way you like. Filtering/sorting will not be affected.<br/>
+                            You can add CSS classes on rows/columns/cells as well.</p>
+                            <div id="div6"></div>
+                        </div>
+                        <div class="tab-pane" id="lG">
+                            <p>Target specific rows by making them checkable/uncheckable.</p>
+                            <div id="div7"></div>
+                            <a href="#" class="btn btn-primary export_checked">Get the checked rows</a>
+                        </div>
+                        <div class="tab-pane" id="lH">
+                            <p>Add custom elements to the actions button and/or toggle filter and columnPicker visibility.</p>
+                            <div id="div8"></div>
+                        </div>
+                        <div class="tab-pane" id="lI">
+                            <p>Use tableCreated event to customize the look. Here's an image carousel with some stuff hidden.</p>
+                            <div id="div9"></div>
+                        </div>
+                        <div class="tab-pane" id="lJ">
+                            <p>With dataBinding you instantly see the changes you do on row properties/rows array.
+                            <br/>Requires IE9+.
+                            <div id="div10"></div>
+                            <a href="#" class="btn btn-primary" id="simulate">Start simulation</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="tab-pane" id="tab2">
+                <div class="col-xs-2">
+                    <ul class="nav nav-tabs tabs-left">
+                        <li class="active">
+                            <a href="#l2A" class="basicStructureTab" data-toggle="tab">Basic Structure</a>
+                        </li>
+                        <li class="">
+                            <a href="#l2D" data-toggle="tab">Init Options</a>
+                        </li>
+                        <li class="">
+                            <a href="#l2B" data-toggle="tab">Column Options</a>
+                        </li>
+                        <li class="">
+                            <a href="#l2C" data-toggle="tab">Row Options</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-10">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="l2A">
+                            <p>To feed the table it needs columns and rows. This is provided from either the server url, or manually via .setData method.
+                                A small setup with 2 columns and 2 rows could look like this:</p>
+                            <p>Always try to use the unique property on one column to get the full potential</p>
+                            <pre style="width:300px"><code class="javascript">{
+  cols: {
+    userId: {
+      index: 1,
+      type: "number",
+      unique: true,
+    },
+    name: {
+      index: 2,
+      type: "string"
+    }
+  },
+  rows: [
+    {
+      userId: 1,
+      name: "Batman"
+    },
+    {
+      userId: 2,
+      name: "Superman"
+    }
+  ]
+}</code></pre>
+                        </div>
+                        <div class="tab-pane" id="l2B">
+                            <table class="table table-striped table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Required</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>cls</td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>List of of CSS classes to apply to all cells, ex "red,green,blue"</td>
+                                    </tr>
+                                    <tr>
+                                        <td>dateFormat</td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>If date, the format to be used.
+                                            <br/>This overrides option date type format. See formats <a href="http://arshaw.com/xdate/#Formatting" target="_blank">here</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>decimals</td>
+                                        <td>int</td>
+                                        <td>No</td>
+                                        <td>Sets and forces the decimal precision for all numbers.
+                                            <br/>This overrides option number type decimals.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>filter</td>
+                                        <td>string/bool</td>
+                                        <td>No</td>
+                                        <td>Sets as initial filter. Use 1/0 for checked/unchecked bool's. false disables filtering.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>filterTooltip</td>
+                                        <td>string/bool</td>
+                                        <td>No</td>
+                                        <td>Text or html to be used when hovering filter instead of default tooltip. false disable tooltip.
+                                            <br/>This overrides option type filterTooltips.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>format</td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>If provided, all rows will be formatted with this. (use rowFormat if you need a different format for every row)
+                                            <br/>Use {0} as placeholder for row value. Ex:
+                                            <pre><code class="html">&lt;a href="/somewhere/user/{0}" class="myClass"&gt;{0}&lt;/a&gt;</code></pre>
+                                    </tr>
+                                    <tr>
+                                        <td>friendly</td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>Text or html to be used in column header instead of column name.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>hidden</td>
+                                        <td>bool</td>
+                                        <td>No</td>
+                                        <td>Hides the column. Useful if you need the column but need to hide it to the user.
+                                            <br/>Can be made visible with the column picker.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>index</td>
+                                        <td>int</td>
+                                        <td>Yes</td>
+                                        <td>Position of the column in the table</td>
+                                    </tr>
+                                    <tr>
+                                        <td>placeholder</td>
+                                        <td>string/bool</td>
+                                        <td>No</td>
+                                        <td>If string, sets as filter placeholder. false removes placeholder.
+                                            <br/>This overrides default text as well as option type filterTooltips.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>sortOrder</td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>Initial sorting. Possible are "asc", "desc".</td>
+                                    </tr>
+                                    <tr>
+                                        <td>sorting</td>
+                                        <td>bool</td>
+                                        <td>No</td>
+                                        <td>False disables sorting.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>tooltip</td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>Text to be shown when hovering <span class="glyphicon glyphicon-info-sign"></span>-icon. Use it to explain your column.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>type</td>
+                                        <td>string</td>
+                                        <td>Yes</td>
+                                        <td>Describes the content so sorting and filtering works properly.
+                                            <br/>Possible are "string", "number", "bool" and "date"(in milliseconds).</td>
+                                    </tr>
+                                    <tr>
+                                        <td>unique</td>
+                                        <td>bool</td>
+                                        <td>No</td>
+                                        <td>Necessary if you need the rowClicked event or checkable rows.
+                                            <br/>Note! Make sure the values are really unique.</td>
+                                    </tr>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="l2C">
+                            <table class="table table-striped table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Required</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>&lt;column&gt;Format</td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>This works just as column format, but on a row level.
+                                            <br/>Reach into this property by naming it as the column and appending "Format".
+                                            <br/>Ex. row.age: <pre><code class="javascript">row.ageFormat = "&lt;div class='comeClass'&gt;{0} years&lt;/div&gt;";</code></pre>
+                                            This overrides the column format.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&lt;column&gt;Cls</td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>List of CSS classes to apply to table cell, ex "red,green,blue".
+                                            <br/>Reach into this property by naming it as the column and appending "Cls".
+                                            <br/>Ex. row.age: <pre><code class="javascript">row.ageCls = "red,green,blue";</code></pre>
+                                    </tr>
+                                    <tr>
+                                        <td>row-checkable</td>
+                                        <td>bool</td>
+                                        <td>No</td>
+                                        <td>If false, row can't be checked.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>row-checked</td>
+                                        <td>bool</td>
+                                        <td>No</td>
+                                        <td>If true, row will be pre-checked.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>row-cls</td>
+                                        <td>string</td>
+                                        <td>No</td>
+                                        <td>List of CSS classes to apply to table row, ex "red,green,blue"</td>
+                                    </tr>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="l2D">
+                            <table class="table table-striped table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Default</th>
+                                        <th>Required</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>actions</td>
+                                        <td>json</td>
+                                        <td>filter: false
+                                            <br/>columnPicker: false
+                                        </td>
+                                        <td>No</td>
+                                        <td>Adds a button you can add custom elements to, and/or toggle filter and columnPicker visibility.
+                                            <br/>Object structure:
+                                            <br/>
+                                            <pre><code>actions: {
+  filter: true, //Toggle visibility
+  columnPicker: true, //Toggle visibility
+  custom: [
+    $('&lt;a href="#">someLink&lt;/a&gt;'),
+    $('&lt;a href="#">anotherLink&lt;/a&gt;')
+  ]
+}</code></pre>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>checkAllToggle</td>
+                                        <td>boolean</td>
+                                        <td>true</td>
+                                        <td>No</td>
+                                        <td>Enables the check-all toggle.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>checkboxes</td>
+                                        <td>boolean</td>
+                                        <td>false</td>
+                                        <td>No</td>
+                                        <td>Enables rows to be checkable. This requires a column with the 'unique' property.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>columnPicker</td>
+                                        <td>boolean</td>
+                                        <td>false</td>
+                                        <td>No</td>
+                                        <td>Enables the column picker.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>data</td>
+                                        <td>object</td>
+                                        <td></td>
+                                        <td>No</td>
+                                        <td>Initial data (so you don't need to call setData if you have the data available)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>dataBind</td>
+                                        <td>boolean</td>
+                                        <td>false</td>
+                                        <td>No</td>
+                                        <td>Updates table when data row changes are detected. If updated column is sorted/filtered on, the complete body is re-rendred, otherwise just the cell.
+                                            Make sure to run <code>Platform.performMicrotaskCheckpoint();</code>after modifying data to support
+                                            <a href="http://caniuse.com/#search=observe" target="_blank">browsers that does not yet support</a> Object.observe.<br/>
+                                        Using WATable with AngularJS? See <a href="#" data-toggle="modal" data-target=".angular-modal">this directive example</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>debug</td>
+                                        <td>boolean</td>
+                                        <td>false</td>
+                                        <td>No</td>
+                                        <td>Prints some debugging info to the console.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>filter</td>
+                                        <td>boolean</td>
+                                        <td>false</td>
+                                        <td>No</td>
+                                        <td>Enables filtering.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>hidePagerOnEmpty</td>
+                                        <td>bool</td>
+                                        <td>false</td>
+                                        <td>No</td>
+                                        <td>Hides the pager when no rows.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>pageSize</td>
+                                        <td>int</td>
+                                        <td>10</td>
+                                        <td>No</td>
+                                        <td>Initial pagesize</td>
+                                    </tr>
+                                    <tr>
+                                        <td>pageSizePadding</td>
+                                        <td>boolean</td>
+                                        <td>false</td>
+                                        <td>No</td>
+                                        <td>Pads with empty rows when pagesize is not met</td>
+                                    </tr>
+                                    <tr>
+                                        <td>pageSizes</td>
+                                        <td>array</td>
+                                        <td>10,20,30,40,50,All</td>
+                                        <td>No</td>
+                                        <td>Pagesizes that should be possible to choose from.
+                                            <br/>Empty array removes button.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>preFill</td>
+                                        <td>bool</td>
+                                        <td>false</td>
+                                        <td>No</td>
+                                        <td>Initially fills the table with empty rows (as many as the pagesize).<br/>
+                                            Useful while waiting for ajax request.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>sortEmptyLast</td>
+                                        <td>boolean</td>
+                                        <td>true</td>
+                                        <td>No</td>
+                                        <td>Empty values will be shown last.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>sorting</td>
+                                        <td>boolean</td>
+                                        <td>true</td>
+                                        <td>No</td>
+                                        <td>Enables sorting.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>transition</td>
+                                        <td>string</td>
+                                        <td>'scroll'</td>
+                                        <td>No</td>
+                                        <td>Transition when paging. Requires <a href="https://github.com/daneden/animate.css" target="_blank">animation.css</a>.
+                                            <br/>Possible are: bounce, fade, flip, rotate, scroll, slide
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>transitionDuration</td>
+                                        <td>float</td>
+                                        <td>0.3</td>
+                                        <td>No</td>
+                                        <td>Duration of transition in seconds.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>types</td>
+                                        <td>json</td>
+                                        <td>placeHolder: see demo
+                                            <br/>filterTooltip: see demo
+                                            <br/>utc: false
+                                            <br/>format: 'yyyy-MM-dd HH:mm:ss'
+                                            <br/>datePicker: true
+                                            <br/>decimals: 2 (0 for int's)
+                                        </td>
+                                        <td>No</td>
+                                        <td>Sets various properties for each datatype.
+                                            <br/>Object structure:
+                                            <br/>
+                                            <pre><code class="javascript">types: {
+  string: {
+    placeHolder: "Jane Doe", //false for empty
+    filterTooltip: "Type something..." //false to remove
+  },
+  number: {
+    //placeHolder: (as string),
+    //filterTooltip: (as string),
+    decimals: 2 //Decimal precision for floats
+  },
+  date: {
+    //placeHolder: (as string),
+    //filterTooltip: (as string),
+    utc: true, //Use without timezone
+    format: 'yy/dd/MM', //See formats <a href="http://arshaw.com/xdate/#Formatting" target="_blank">here</a>
+    datePicker: false
+  },
+  bool: {
+    //filterTooltip: (as string)
+  }
+}</code></pre>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>url</td>
+                                        <td>string</td>
+                                        <td>(empty)</td>
+                                        <td>No</td>
+                                        <td>Path to server to collect data.
+                                            <br/>If not set, data need to be set manually via method .setData.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>urlData</td>
+                                        <td>json</td>
+                                        <td>(empty)</td>
+                                        <td>No</td>
+                                        <td>Any data thats needed on serverside, ex:
+                                            <br/>
+                                            <pre><code>{ reportId: 15 }</code></pre>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>urlPost</td>
+                                        <td>bool</td>
+                                        <td>false</td>
+                                        <td>No</td>
+                                        <td>Uses POST httpmethod instead of GET when calling webservice.</td>
+                                    </tr>
+                                    <tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab3">
+                <h4>.getData</h4>
+                <p>Returns all data that was collected from server or via .setData method.</p>
+                <table class="table table-striped table-condensed" style="margin-top: -10px;">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>checked</td>
+                            <td>bool</td>
+                            <td>false</td>
+                            <td>If true, checked rows are returned.</td>
+                        </tr>
+                        <tr>
+                            <td>filtered</td>
+                            <td>bool</td>
+                            <td>false</td>
+                            <td>If true, filtered rows are returned.</td>
+                        </tr>
+                        <tr>
+                            <td>rendered</td>
+                            <td>bool</td>
+                            <td>false</td>
+                            <td>If true, rendered rows are returned.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>.getRow</h4>
+                <p>Returns the row(and array index) related to the unique id.</p>
+                <table class="table table-striped table-condensed" style="margin-top: -10px;">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>uniqueId</td>
+                            <td>int/string</td>
+                            <td></td>
+                            <td>The uniqie id of the row.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>.option</h4>
+                <p>Get/Set options. If value is left out, it will act as a getter.</p>
+                <table class="table table-striped table-condensed" style="margin-top: -10px;">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>option</td>
+                            <td>string</td>
+                            <td></td>
+                            <td>The option you want to get or set.</td>
+                        </tr>
+                        <tr>
+                            <td>value</td>
+                            <td>anything</td>
+                            <td></td>
+                            <td>The new value you want to use.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>.setData</h4>
+                <p>Sets columns and rows.</p>
+                <table class="table table-striped table-condensed" style="margin-top: -10px;">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>data</td>
+                            <td>json</td>
+                            <td></td>
+                            <td>See <a href="#" class="basic-structure">Basic Structure</a></td>
+                        </tr>
+                        <tr>
+                            <td>skipCols</td>
+                            <td>bool</td>
+                            <td>false</td>
+                            <td>If true, columns wont be overwritten. This is convenient when you simply want to refresh the data but keep the same columns as before. This means that filters wont be touched as well as any columns you might have added/removed
+                                with the column picker.</td>
+                        </tr>
+                        <tr>
+                            <td>resetChecked</td>
+                            <td>bool</td>
+                            <td>true</td>
+                            <td>If false, any previously checked rows wont be reset.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>.update</h4>
+                <p>Collects new data from server. This has no effect if data was set via .setData method.</p>
+                <table class="table table-striped table-condensed" style="margin-top: -10px;">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>callback</td>
+                            <td>function</td>
+                            <td></td>
+                            <td>Triggered after data has been collected..</td>
+                        </tr>
+                        <tr>
+                            <td>skipCols</td>
+                            <td>bool</td>
+                            <td>false</td>
+                            <td>If true, columns wont be overwritten. This is convenient when you simply want to refresh the data but keep the same columns as before. This means that filters wont be touched as well as any columns you might have added/removed
+                                with the column picker.</td>
+                        </tr>
+                        <tr>
+                            <td>resetChecked</td>
+                            <td>bool</td>
+                            <td>true</td>
+                            <td>If false, any previously checked rows wont be reset.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="tab4">
+                <table class="table table-striped table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Event</th>
+                            <th>Arguments</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>tableCreated(data)</td>
+                            <td>
+                                 <span class="text-primary">data.table</span> - the html table
+                                <br/> <span class="text-primary">this</span> - the html table
+                            </td>
+                            <td>Fires immediately each time the table has been created.
+                                <br/>Use this event if you need to modify the table html.</td>
+                        </tr>
+                        <tr>
+                            <td>rowClicked(data)</td>
+                            <td>
+                                <span class="text-primary">data.event</span> - the jQuery event
+                                <br/><span class="text-primary">data.row</span> - the underlying json row
+                                <br/><span class="text-primary">data.index</span> - the row index in rows array
+                                <br/><span class="text-primary">data.column</span> - the underlying json column
+                                <br/><span class="text-primary">data.checked</span> - true if checked (Modifiable)
+                                <br/><span class="text-primary">this</span> - the clicked element
+                            </td>
+                            <td>Fires when clicking a row (requires a column with the unique property)
+                                <br/>Use this event to get the underlying object for the row.
+                                <br/><br/>Some tips:
+                                <br/>Use the index to splice out the row from the rows data array.
+                                <br/>Set data.checked=false to prevent a row from being checked (or vice versa)</td>
+                        </tr>
+                        <tr>
+                            <td>columnClicked(data)</td>
+                            <td>
+                                <span class="text-primary">data.event</span> - the jQuery event
+                                <br/><span class="text-primary">data.column</span> - the underlying json column
+                                <br/><span class="text-primary">data.descending</span> - true if sorted descending
+                                <br/><span class="text-primary">this</span> - the clicked element
+                            </td>
+                            <td>Fires when clicking a column.</td>
+                        </tr>
+                        <tr>
+                            <td>pageChanged(data)</td>
+                            <td>
+                                <span class="text-primary">data.event</span> - the jQuery event
+                                <br/><span class="text-primary">data.page</span> - the new page index
+                                <br/><span class="text-primary">this</span> - the clicked element
+                            </td>
+                            <td>Fires when manually changing page.</td>
+                        </tr>
+                        <tr>
+                            <td>pageSizeChanged(data)</td>
+                            <td>
+                                 <span class="text-primary">data.event</span> - the jQuery event
+                                <br/><span class="text-primary">data.pageSize</span> - the new pagesize
+                                <br/><span class="text-primary">this</span> - the clicked element
+                            </td>
+                            <td>Fires when manually changing pagesize.</td>
+                        </tr>
+
+                </table>
+            </div>
+
+            <div class="tab-pane" id="tab6">
+                <p><a href="http://jquery.com/" target="_blank">jQuery 1.7+</a>
+                    <br/><a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap 3+</a>
+                    <br/><a href="http://www.eyecon.ro/bootstrap-datepicker/" target="_blank">DatePicker for Bootstrap</a> - Required only if you need the datepicker (Not included in download package)
+                    <br/><a href="https://github.com/daneden/animate.css" target="_blank">Animate.css</a> - Required only if you need transitions (Not included in download package)
+                    <br/>
+                    <br/>IE Support? Yes, IE9+. However, IE7/IE8 works if you remove last observe-js polyfill at bottom.
+                    <br/>Keep in mind though, things don't move fast in &lt;IE9. But if you must support it... <span style="font-weight: bold;">keep the data small</span>.
+                </p>
+            </div>
+            <div class="tab-pane" id="tab8">
+                <div class="col-xs-2">
+                    <ul class="nav nav-tabs tabs-left">
+                        <li class="active">
+                            <a href="#l3A" data-toggle="tab">Download</a>
+                        </li>
+                        <li class="">
+                            <a href="#l3B" data-toggle="tab">Changelog</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-10">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="l3A">
+                            <p>Developed by Andreas Petersson
+                                <br/>Email: <a href="mailto:apesv03@gmail.com" target="_blank">apesv03@gmail.com</a>
+                                <br/>LinkedIn: <a href="http://www.linkedin.com/in/wootapa" target="_blank">http://www.linkedin.com/in/wootapa</a>
+                                <br/>
+                                <br/>Licensed under MIT
+                                <br/>Current version: 1.10.3
+                                <br/>GitHub: <a href="https://github.com/wootapa/watable" target="_blank">https://github.com/wootapa/watable</a>
+                            </p>
+                            <a class="btn btn-primary btn-large download" href="/static/watable.zip">Download</a>
+
+                            <div class="donation" style="margin-top: 25px;">
+                                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                                    <p>Like it?<br/>Help me not fall asleep by buying me a coffee or two!</p>
+                                    <input type="hidden" name="cmd" value="_s-xclick">
+                                    <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHNwYJKoZIhvcNAQcEoIIHKDCCByQCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYAk/E0j3WDEvW1JZGNzZcze69zPrEzxZAh6W3UyAkI0mukf8KfoN45sInKQ6YzIEx7uIfqW+LaYHtaHItnQFhA30WuO1swG9/C3eil3FM4bXY7+yW3mTIE80KhxdYFgTatAxuiZNuRmcVh1EiGwB8ZWPKQeBPcN7vRWZY+Hl2/K7TELMAkGBSsOAwIaBQAwgbQGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIqN1TTcvraHKAgZDcgX7ND+++feGaExm/OEM0hogclqUpo0z0M/CK/fcdsqI5U8WPWpd304IBx1RvQqG1qLW6SyIunDacCbLQSS2kvjgrepJNpkbfE+6LkWnmR7t77WsmsVLOGk3O3Dw7BLBqRsjreW5JNSmPXpjBuJNQ6tBzWoQIQv7T0rmi6uFTCi+blXnPn6t6XaTKmxRVvhGgggOHMIIDgzCCAuygAwIBAgIBADANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wHhcNMDQwMjEzMTAxMzE1WhcNMzUwMjEzMTAxMzE1WjCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMFHTt38RMxLXJyO2SmS+Ndl72T7oKJ4u4uw+6awntALWh03PewmIJuzbALScsTS4sZoS1fKciBGoh11gIfHzylvkdNe/hJl66/RGqrj5rFb08sAABNTzDTiqqNpJeBsYs/c2aiGozptX2RlnBktH+SUNpAajW724Nv2Wvhif6sFAgMBAAGjge4wgeswHQYDVR0OBBYEFJaffLvGbxe9WT9S1wob7BDWZJRrMIG7BgNVHSMEgbMwgbCAFJaffLvGbxe9WT9S1wob7BDWZJRroYGUpIGRMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbYIBADAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4GBAIFfOlaagFrl71+jq6OKidbWFSE+Q4FqROvdgIONth+8kSK//Y/4ihuE4Ymvzn5ceE3S/iBSQQMjyvb+s2TWbQYDwcp129OPIbD9epdr4tJOUNiSojw7BHwYRiPh58S1xGlFgHFXwrEBb3dgNbMUa+u4qectsMAXpVHnD9wIyfmHMYIBmjCCAZYCAQEwgZQwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tAgEAMAkGBSsOAwIaBQCgXTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0xMzA0MjUxNjQ4NTFaMCMGCSqGSIb3DQEJBDEWBBTZSwHZnzRCgU6XECbtexw2nibQfDANBgkqhkiG9w0BAQEFAASBgKWA1dz+TqpT6Vo8bbDdBILowKBw7pFhGCqZwoigdjX6ttiKtfhrQSacAlWYKuDbzF0SZhmpWchx1k2anL3ZNV74wE1WWoME5Nsd2yAt5fVTPwfZu2xQt1C51ZDR7jZqXn76PQfRtQ4eq4Vm1tN5UVai8LWW2q9HyWJonhEFJ6y4-----END PKCS7-----">
+                                    <input type="image" class="coffee" src="http://i989.photobucket.com/albums/af13/apesv03/watable/coffeebutton.png" border="0" />
+                                    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                                    <p>Thanks!</p>
+                                </form>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane" id="l3B">
+                            <table class="table table-striped table-condensed">
+                                <tbody>
+                                    <tr>
+                                        <td>1.10.3</td>
+                                        <td>Fixed a performance problem with autogenerated string formatting with data-bind option.
+                                            <br/>Fixed a problem with incorrect index from .getRow method after deleting object with data-bind option.
+                                            <br/>Fixed a problem with date/bool startup filters.
+                                            <br/>Fixed missing call to rowClicked event when checking row.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.10.2</td>
+                                        <td>Fixed bool data-binding issue (thanks <a href="https://github.com/strokyl" target="_blank">strokyl</a>).
+                                            <br/>Fixed invalid rendering of empty strings for date/numbers.
+                                            <br/>Fixed a problem with checkbox checking/filtering.
+                                            <br/>Fixed a problem with sorting and sortEmptyLast option.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.10.1</td>
+                                        <td>Fixed some data-binding issues.
+                                            <br/>Added column option "cls" so you can set CSS classes on columns as well.
+                                            <br/>Changed row option naming from "row-class" to "row-cls" and "&lt;column&gt;Class" to "&lt;column&gt;Cls" (to be consistent with column "cls". <strong>Sorry for the mess</strong>).
+                                            <br/>Added "data" option (so you don't need to call setData method if you have it available).
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.10</td>
+                                        <td>Added "dataBind" option. See details below, and <a href="#" class="dataBindDemo">demo here</a>.
+                                            <br/>Added "row-class" and "&lt;column&gt;Class" row options so you can set CSS classes on row/cell level.
+                                            <br>Changed naming of row option "checkable" to "row-checkable" and "checked" to "row-checked".
+                                            <br/>Added "pageSizePadding" option. This pads with empty rows when pagesize is not met.
+                                            <br/>Added "dateFormat" column option.
+                                            <br/>Added "rendered" parameter to getData method so you can get only the rendered rows.
+                                            <br/>Added method "getRow" that returns the row related to a unique id. Ex, waTable.getRow(5);
+                                            <br/>You can now prevent rows to be checked/unchecked by setting "checked" true/false from rowClicked event.
+                                            <br/>Performance improvements
+                                            <br/>Updated to jQuery 1.11.2 and bootstrap 3.3.1
+                                            <br/>
+                                            <br/><strong>Data-Binding</strong><br/>
+                                            I'll start by saying that IE7/IE8 will break with this version because of the dataBind polyfill. If this is important
+                                            to you and you can't live without features in this version, then remove the observe-js polyfill at bottom of script.
+                                            <br/>Moving on...<br/>From now on, WATable, with option <code>dataBind:true</code> will auto update whenever there's a change to the underlying rows array, ie pushing/popping rows or
+                                            changing row values.
+                                            <pre><code class="javascript">//This would update the name to Batman for row with unique id 5
+waTable.getRow(5).row.name = "Batman";
+//This would add and render the row
+waTable.getData().rows.push({userId:5, name:"Batman"});</code></pre>
+                                            This is based on Object.observe, which is kind of high tech(ES7), so <a href="http://caniuse.com/#search=observe" target="_blank">most browsers don't support it yet</a>.
+                                            At this time it's only Chrome 36+ and Opera 26+. However, until the future is here you'd want to support other browsers, and for that you run this when done:
+                                            <pre><code>Platform.performMicrotaskCheckpoint();</code></pre>That piece of code is
+                                            <a href="https://github.com/polymer/observe-js" target="_blank">Polymers dirtychecking polyfill</a> and will notify WATable about the changes.<br/>
+                                            If you're using AngularJS, <a href="#" data-toggle="modal" data-target=".angular-modal">here's a directive example</a>.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.09</td>
+                                        <td>Updated to bootstrap 3.1.1. This means dropping support for version 2.
+                                            <br/><span class="text-muted">Also note that bootstrap 3 dropped support for IE7. Bring it back with this <a href="https://github.com/coliff/bootstrap-ie7" target="_blank">polyfill</a> (if you must)</span>
+                                            <br/>Updated to jQuery 1.11.0
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.08</td>
+                                        <td>Added transitions when paging (for you who like some eye candy). See <a href="#" class="transitionsDemo">demo</a> tab.
+                                            <br/>Added "!" negate operator to number filters as well. Ex, all but 10..20: <span class="hint">!10..20</span>
+                                            <br/>Added "?" regex operator to string filters. Ex, find John and Jane Doe: <span class="hint">?John Doe|Jane Doe</span>
+                                            <br/>Added "sorting" option and column option so sorting can be turned off.
+                                            <br/>Added "sortEmptyLast" option. Empty values are by default shown last.
+                                            <br/>Added "checkAllToggle" option so you can hide the check-all toggle
+                                            <br/>Various bugfixes
+                                            <br/>Updated to jQuery 1.10.2
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.07</td>
+                                        <td>Added "checkboxes" option (required if you want checkable rows)
+                                            <br/>Changed "filter" column option to accept strings (so you can filter from start)
+                                            <br/>Added "placeHolder" to column option and to string, number, date type options
+                                            <br/>Added "filterTooltip" to column option and to string, number, date type options
+                                            <br/>Added IE7 and 8 support
+                                            <br/>Added unminified source
+                                            <br/>Added github repo (https://github.com/wootapa/watable)
+                                            <br/>Fields now renders empty if left undefined
+                                            <br/>Updated to jQuery 1.10.0 and bootstrap 2.3.2
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.06</td>
+                                        <td>Added new filter range operator ".."
+                                            <br/>Added "checked" argument to "rowClicked" event
+                                            <br/>Added "checkable" and "checked" to row option
+                                            <br/>Added "resetChecked" flag to "update" and "setData" methods
+                                            <br/>Added "decimals" to column option and to number type option
+                                            <br/>Added "columnClicked" event
+                                            <br/>Added "pageChanged" event
+                                            <br/>Added "pageSizeChanged" event
+                                            <br/>Updated download sample to jQuery 1.9.1 and bootstrap 2.3.1
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.05</td>
+                                        <td>Added "datePicker" to date type option.
+                                            <br/>You need to include Stefan Petre's excellent datepicker plugin for this to work. See dependencies for link.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.04</td>
+                                        <td>Added "option" method.
+                                            <br/>Added column argument to rowClicked event.
+                                            <br/>Various bugfixes.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.03</td>
+                                        <td>Added "actions", "hidePagerOnEmpty", "preFill" and "urlPost" option.
+                                            <br/>Deprecated init() method. Creation is now the more familiar $('selector').WATable();
+                                            <br/>More arguments to rowClicked event.
+                                            <br/>Commented the download sample a bit.
+                                            <br/>Various bugfixes.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.02</td>
+                                        <td>Added "utc" and "format" to date type option.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.01</td>
+                                        <td>Added "columnPicker" option.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.0</td>
+                                        <td>Initial release.</td>
+                                    </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab9">
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                    var disqus_shortname = 'watable'; // required: replace example with your forum shortname
+                    /* * * DON'T EDIT BELOW THIS LINE * * */
+                    (function () {
+                        var dsq = document.createElement('script');
+                        dsq.type = 'text/javascript';
+                        dsq.async = true;
+                        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the
+                    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+                </noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="modal angular-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="z-index: 9999; width: 1000px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4>AngularJS - WATable directive</h4>
+                </div>
+                <div class="modal-body">
+                    <pre>
+                        <code class="javascript">
+//inject service that holds the actual data.
+.directive('myDirective', ['myService', function(myService){
+    return {
+        restrict: 'C',
+        link: function (scope, element, attrs) {
+            //Make sure to run Polymers dirty-checking when scope changes
+            scope.$watch(Platform.performMicrotaskCheckpoint);
+
+            //Create data object
+            var data = {
+                cols: {
+                    userId: { index: 1, type: "number", friendly: "UserId", unique: true, sortOrder: "asc" },
+                    name: { index: 2, type: "string", friendly: "Name" },
+                    age: { index: 3, type: "number", friendly: "Age" }
+                },
+                //Get reference to service rows array.
+                rows: myService.getRows()
+                /*
+                    Remember... this is a reference. So in myService, you can never again assign a new array (i.e. myService.rows=[]).
+                    If you need to clear the array, just do myService.rows.length=0; (or splice/shift/pop or whatever you like)
+                */
+            };
+
+            //Initiate WATable
+            var waTable = $(element).WATable({ dataBind: true }).data('WATable'); //Init with dataBind option
+
+            //Assign data
+            waTable.setData(data);
+        }
+    }
+}]);
+                        </code>
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        //Basic
+        $('#div1').WATable({
+            url: '/api/report/33/basic',
+            preFill: true
+        });
+
+         //Column Help
+        $('#div2').WATable({
+            url: '/api/report/35/columnhelp',
+            preFill: true
+        });
+
+         //Filtering
+        var w3 = $('#div3').WATable({
+            url: '/api/report/1500/filter',
+            pageSizes: [10, 20, 30, 40, 100],
+            filter: true,
+            preFill: true
+        }).data('WATable');
+        $('body').on('click', '.export_filtered', function (e) {
+            e.preventDefault();
+            var data = w3.getData(false, true);
+            console.log(data.rows.length + ' rows returned');
+            console.log(data);
+            alert(data.rows.length + ' rows returned.\nSee console for details.');
+        });
+
+         //Transitions
+        var w4 = $('#div4').WATable({
+            url: '/api/report/125/basic',
+            preFill: true,
+            transition: 'scroll'
+        }).data('WATable');
+        $('body').on('click', '.transition', function (e) {
+            e.preventDefault();
+            $('.transition').removeClass('active');
+            var elem = $(this);
+            elem.addClass('active');
+            w4.option('transition', elem.text().toLowerCase());
+        });
+
+        //ColumnPicker
+        var w5 = $('#div5').WATable({
+            url: '/api/report/310/columnpicker',
+            columnPicker: true,
+            preFill: true
+        }).data('WATable');
+        $("#update").on('click', function (e) {
+            e.preventDefault();
+            var elem = $(this);
+            elem.addClass('disabled');
+            w5.option('url', '/api/report/{0}/filter'.format(Math.floor((Math.random() * 400) + 50)));
+            w5.update(function (e) {
+                elem.removeClass('disabled');
+            }, true);
+        });
+
+         //Formatting
+        var w6 = $('#div6').WATable({
+            url: '/api/report/279/format',
+            preFill: true,
+            filter: true,
+            types: {
+                date: {
+                    format: 'yyyy/dd/MM',
+                    utc: true
+                }
+            }
+        }).data('WATable');
+
+         //Checkable
+        var w7 = $('#div7').WATable({
+            url: '/api/report/300/checkable',
+            pageSizes: [10, 20, 30, 40, 100],
+            preFill: true,
+            checkboxes: true,
+            filter: true
+        }).data('WATable');
+        $("body").on('click', '.export_checked', function (e) {
+            e.preventDefault();
+            var data = w7.getData(true);
+            console.log(data.rows.length + ' rows returned');
+            console.log(data);
+            alert(data.rows.length + ' rows returned.\nSee console for details.');
+        });
+
+         //Actions
+        var w8 = $('#div8').WATable({
+            url: '/api/report/50/basic',
+            preFill: true,
+            actions: {
+                filter: true,
+                columnPicker: true,
+                custom: [
+                    $('<a href="#" class="refresh"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Refresh</a>'),
+                    $('<a href="#" class="export_all"><span class="glyphicon glyphicon-share"></span>&nbsp;Export rows</a>')
+                ]
+            }
+        }).data('WATable');
+        $('body').on('click', '.refresh', function (e) {
+            e.preventDefault();
+            w8.option('url', '/api/report/{0}/basic'.format(Math.floor((Math.random() * 400) + 50)));
+            w8.update();
+        });
+        $('body').on('click', '.export_all', function (e) {
+            e.preventDefault();
+            var data = w8.getData();
+            console.log(data.rows.length + ' rows returned');
+            console.log(data);
+            alert(data.rows.length + ' rows returned.\nSee console for details.');
+        });
+
+         //Customize
+        $('#div9').WATable({
+            url: '/api/report/3/custom',
+            preFill: true,
+            pageSize: 1,
+            pageSizes: [],
+            transition: 'slide',
+            transitionDuration: 0.5,
+            tableCreated: function (data) {
+                $('thead, tfoot p, tfoot li:not(:first):not(:last)', this).hide();
+            }
+        });
+
+        //DataBind
+        var w10 = $('#div10').WATable({
+            url: '/api/report/0/databind',
+            dataBind: true,
+            filter: true,
+            preFill: true,
+            pageSizePadding: true,
+            rowClicked: function(data) {
+                if (data.column.column == "killSwitch") {
+                    data.event.preventDefault();
+                    w10.getData().rows.splice(data.index, 1);
+                    Platform.performMicrotaskCheckpoint();
+                }
+            }
+        }).data('WATable');
+
+        (function() {
+
+            var getClass = function(value) {
+                if (value < 80 && value > 60)
+                    return 'yellow'
+                if (value <= 100 && value > 80)
+                    return 'red';
+                return 'green';
+            };
+
+            var bytesToSize = function(bytes) {
+                var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+                if (bytes == 0) return '0 Byte';
+                var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+                return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+            };
+
+            var rows = [];
+            var processes = ['foo', 'autodiskmount', 'automount', 'configd', 'CrashReporter', 'cron', 'DirectoryService', 'location', 'Bonjour', 'DesktopDB', 'distnoted', 'dynamic_pager', 'ftpd', 'httpd', 'init', 'inetd', 'ipconfigd', 'KernelEventAgent', 'kextd', 'launchd', 'lookupd', 'mach_init', 'mDNSResponder', 'netinfod', 'nfsiod', 'nibindd', 'notifyd', 'ntpd', 'pitond', 'pmTool', 'portmap', 'slpd', 'slpdLoad', 'sshd', 'syslogd', 'telnetd', 'update', 'xinetd'];
+            for (var i = 0; i < 15; i++) {
+                var row = {};
+                row.pid = Math.floor((Math.random() * 99999) + 10000);
+                row.process = processes[Math.floor(Math.random() * (processes.length-1)) + 1];
+                row.cpu = Math.floor((Math.random() * 9900) + 100) / 100;
+                row.cpuCls = getClass(row.cpu);
+                row.mem = Math.floor((Math.random() * 1000000000) + 100) / 100;
+                row.memCls = getClass(row.mem/100000);
+                row.memFormat = bytesToSize(row.mem);
+                row.port = Math.floor((Math.random() * 65535) + 20);
+                row.time = Math.floor((Math.random() * 240) + 10);
+                rows.push(row);
+            }
+
+            var simulating = false;
+
+            $("#simulate").on('click', function (e) {
+
+                e.preventDefault();
+                var button = $(this);
+
+                if (simulating) {
+                    simulating = false;
+                    button.html('Start simulation');
+                    return;
+                }
+                button.html('Stop simulation');
+                simulating = true;
+
+                var tableRows = w10.getData().rows;
+                var timeout = 0;
+                var simulate = function () {
+                    setTimeout(function () {
+                        if (!simulating) return;
+                        if (rows.length > 0) {
+                            timeout = 100;
+                            tableRows.push(rows.shift());
+                        }
+                        else {
+                            timeout = 500;
+                            for (var i=0;i<5;i++) {
+                                var row = tableRows[Math.floor((Math.random() * (tableRows.length-1)) + 1)];
+                                if (row) {
+                                    row.cpu = Math.floor((Math.random() * 9900) + 100)/100;
+                                    row.cpuCls = getClass(row.cpu);
+                                    row.mem = Math.floor((Math.random() * 1000000000) + 100) / 100;
+                                    row.memCls = getClass(row.mem/100000);
+                                    row.memFormat = bytesToSize(row.mem);
+                                }
+                            }
+                        }
+                        Platform.performMicrotaskCheckpoint();
+                        simulate();
+                    }, timeout);
+                };
+                simulate();
+            });
+        })();
+
+    </script>
+    <script type="text/javascript">
+        $('body').on('click', '.download', function (e) {
+            _gaq.push(['_trackEvent', 'Download', 'watable.zip', this.href]);
+        });
+
+        $('body').on('click', '.coffee', function (e) {
+            _gaq.push(['_trackEvent', 'Donate', 'Coffee']);
+        });
+
+        $('body').on('click', '.downloadTab', function (e) {
+            $('.donation').addClass("animated rubberBand");
+        });
+
+        $('body').on('click', '.databindTab', function (e) {
+            setTimeout(function() {
+                $('#simulate').addClass("animated pulse");
+            },1000);
+        });
+
+        $('body').on('click', '.transitionsDemo', function (e) {
+            $('.demoTab').trigger('click');
+            $('.transitionsTab').trigger('click');
+        });
+
+        $('body').on('click', '.dataBindDemo', function (e) {
+            $('.demoTab').trigger('click');
+            $('.dataBindTab').trigger('click');
+        });
+
+        $('body').on('click', '.basic-structure', function (e) {
+            $('.optionsTab').trigger('click');
+            $('.basicStructureTab').trigger('click');
+        });
+    </script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+    $('#theme-selector').bootstrapThemeSwitcher();
+    setTimeout(function() {
+        $('.github').addClass("animated pulse");
+    },5000);
+</script>
+</body>
+
+</html>
