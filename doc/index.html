@@ -1129,7 +1129,7 @@ waTable.getData().rows.push({userId:5, name:"Batman"});</code></pre>
             var elem = $(this);
             elem.addClass('disabled');
             var items = Array(1500,1200,50);
-            w5.option('url', 'api/report/{0}/filter'.format(items[Math.floor(Math.random()*items.length)]);
+            w5.option('url', 'api/report/{0}/filter'.format(items[Math.floor(Math.random()*items.length)]));
             w5.update(function (e) {
                 elem.removeClass('disabled');
             }, true);
