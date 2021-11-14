@@ -256,7 +256,7 @@
         cookieExpiration: 7,
         cookiePath: '/',
         defaultCssFile: '//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css',
-        bootswatchApiUrl: 'http://api.bootswatch.com',
+        bootswatchApiUrl: 'https://api.bootswatch.com',
         bootswatchApiVersion: '3',
         loadFromBootswatch: true,
         localFeed: '',
